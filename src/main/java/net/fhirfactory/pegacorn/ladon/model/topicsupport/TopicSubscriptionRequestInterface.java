@@ -19,30 +19,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package net.fhirfactory.pegacorn.ladon.model.behaviours;
+package net.fhirfactory.pegacorn.ladon.model.topicsupport;
 
-import net.fhirfactory.pegacorn.ladon.model.stimuli.StimulusType;
-import net.fhirfactory.pegacorn.ladon.model.twin.DigitalTwinIdentifier;
+import java.util.List;
+
 import net.fhirfactory.pegacorn.petasos.model.topics.TopicToken;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+public interface TopicSubscriptionRequestInterface {
+	public void requestSubscrption(List<TopicToken> topicList);
 
-public class ExplicitStimulus2TwinInstanceMap {
-    private BehaviourIdentifier behaviourIdentifier;
-    private HashMap<StimulusType, HashSet<DigitalTwinIdentifier>> stimulusRequirementMap;
-
-    public ExplicitStimulus2TwinInstanceMap(BehaviourIdentifier behaviourIdentifier){
-        this.behaviourIdentifier = behaviourIdentifier;
-        stimulusRequirementMap = new HashMap<>();
-    }
-
-    public BehaviourIdentifier getBehaviourIdentifier() {
-        return behaviourIdentifier;
-    }
-
-    public HashMap<StimulusType, HashSet<DigitalTwinIdentifier>> getStimulusRequirementMap() {
-        return stimulusRequirementMap;
-    }
 }
