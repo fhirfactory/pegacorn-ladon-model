@@ -55,7 +55,7 @@ public class BehaviourRouteNames {
     }
 
     public String getBehaviourEgressConduitEgressPoint(){
-        String result = "direct:" + this.behaviourName + BEHAVIOUR_INGRES_CONDUIT_INGRES_POINT;
+        String result = "direct:" + this.behaviourName + BEHAVIOUR_EGRESS_CONDUIT_EGRESS_POINT;
         return(result);
     }
 
