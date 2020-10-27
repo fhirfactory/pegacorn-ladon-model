@@ -22,7 +22,7 @@
 package net.fhirfactory.pegacorn.ladon.model.fhir.r4.builders;
 
 import net.fhirfactory.pegacorn.ladon.model.fhir.r4.common.LadonModelConstants;
-import net.fhirfactory.pegacorn.ladon.model.status.dtcache.DTCacheActivityOutcomeEnum;
+import net.fhirfactory.pegacorn.ladon.model.dtcache.DTCacheActivityOutcomeEnum;
 import org.hl7.fhir.r4.model.IdType;
 import org.hl7.fhir.r4.model.OperationOutcome;
 

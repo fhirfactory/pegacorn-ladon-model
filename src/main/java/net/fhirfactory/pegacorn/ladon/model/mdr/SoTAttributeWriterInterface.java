@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Mark A. Hunter (ACT Health)
+ * Copyright (c) 2020 Mark A. Hunter
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -19,13 +19,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package net.fhirfactory.pegacorn.ladon.model.status.dtcache;
+package net.fhirfactory.pegacorn.ladon.model.mdr;
 
-public enum DTCacheActivityActionEnum {
-    DT_CACHE_ACTION_RESOURCE_CREATE,
-    DT_CACHE_ACTION_RESOURCE_UPDATE,
-    DT_CACHE_ACTION_RESOURCE_REMOVE,
-    DT_CACHE_ACTION_RESOURCE_RETRIEVE,
-    DT_CACHE_ACTION_RESOURCE_SYNCHRONISE,
-    DT_CACHE_ACTION_RESOURCE_LOAD
+import org.hl7.fhir.r4.model.Element;
+import org.hl7.fhir.r4.model.IdType;
+import org.hl7.fhir.r4.model.Property;
+import org.hl7.fhir.r4.model.Resource;
+
+import java.util.List;
+
+public interface SoTAttributeWriterInterface {
+    public void writeResourceAttribute(Property attributeName, List<Element> valueList);
+    public void writeResourceAttribute(Property attributeName, Element value);
+    public void writeResourceAttribute(Property attributeName, IdType value);
+    public boolean isSuitableWriterForAttribute(Property attributeName, List<Element> valueList);
+    public boolean isSuitableWriterForAttribute(Property attributeName, Element valueList);
+    public boolean isSuitableWriterForAttribute(Property attributeName, IdType value);
+    public boolean isSuitableWriterForAttribute(Resource wholeResource);
 }

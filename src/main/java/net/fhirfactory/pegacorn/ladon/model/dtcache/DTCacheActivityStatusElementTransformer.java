@@ -1,4 +1,4 @@
-package net.fhirfactory.pegacorn.ladon.model.status.dtcache;
+package net.fhirfactory.pegacorn.ladon.model.dtcache;
 
 import ca.uhn.fhir.rest.api.MethodOutcome;
 import net.fhirfactory.pegacorn.ladon.model.fhir.r4.builders.DTCacheOperationOutcomeBuilder;

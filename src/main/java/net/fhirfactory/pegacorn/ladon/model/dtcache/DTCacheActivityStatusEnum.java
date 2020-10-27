@@ -19,7 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package net.fhirfactory.pegacorn.ladon.model.status.dtcache;
+package net.fhirfactory.pegacorn.ladon.model.dtcache;
 
 public enum DTCacheActivityStatusEnum {
     DT_CACHE_ACTIVITY_RESOURCE_CREATION_START,

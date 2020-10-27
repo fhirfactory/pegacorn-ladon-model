@@ -19,7 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package net.fhirfactory.pegacorn.ladon.model.status.dtcache;
+package net.fhirfactory.pegacorn.ladon.model.dtcache;
 
 import net.fhirfactory.pegacorn.ladon.model.status.common.LadonComponentErrorLevelEnum;
 import net.fhirfactory.pegacorn.ladon.model.status.common.LadonComponentStatusElement;
