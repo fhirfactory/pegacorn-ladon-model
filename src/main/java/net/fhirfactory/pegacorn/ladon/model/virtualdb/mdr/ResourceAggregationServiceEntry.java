@@ -19,12 +19,36 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package net.fhirfactory.pegacorn.ladon.model.mdr;
+package net.fhirfactory.pegacorn.ladon.model.virtualdb.mdr;
 
-import org.hl7.fhir.r4.model.Property;
+import org.hl7.fhir.r4.model.Resource;
 
-public abstract class SoTAttributeReader extends SoTAttributeCommon implements SoTAttributeReaderInterface{
+public class ResourceAggregationServiceEntry {
+    private ResourceGradeEnum responseResourceGrade;
+    private SoTConduitGradeEnum soTGrade;
+    private Resource resource;
 
+    public ResourceGradeEnum getResponseResourceGrade() {
+        return responseResourceGrade;
+    }
 
+    public void setResponseResourceGrade(ResourceGradeEnum responseResourceGrade) {
+        this.responseResourceGrade = responseResourceGrade;
+    }
 
+    public SoTConduitGradeEnum getSoTGrade() {
+        return soTGrade;
+    }
+
+    public void setSoTGrade(SoTConduitGradeEnum soTGrade) {
+        this.soTGrade = soTGrade;
+    }
+
+    public Resource getResource() {
+        return resource;
+    }
+
+    public void setResource(Resource resource) {
+        this.resource = resource;
+    }
 }

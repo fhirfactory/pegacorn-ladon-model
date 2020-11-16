@@ -19,21 +19,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package net.fhirfactory.pegacorn.ladon.model.mdr;
+package net.fhirfactory.pegacorn.ladon.model.virtualdb.mdr;
 
-import org.hl7.fhir.r4.model.Element;
-import org.hl7.fhir.r4.model.IdType;
-import org.hl7.fhir.r4.model.Property;
-import org.hl7.fhir.r4.model.Resource;
-
-import java.util.List;
-
-public interface SoTAttributeWriterInterface {
-    public void writeResourceAttribute(Property attributeName, List<Element> valueList);
-    public void writeResourceAttribute(Property attributeName, Element value);
-    public void writeResourceAttribute(Property attributeName, IdType value);
-    public boolean isSuitableWriterForAttribute(Property attributeName, List<Element> valueList);
-    public boolean isSuitableWriterForAttribute(Property attributeName, Element valueList);
-    public boolean isSuitableWriterForAttribute(Property attributeName, IdType value);
-    public boolean isSuitableWriterForAttribute(Resource wholeResource);
+public enum ResourceGradeEnum {
+    EMPTY,
+    LIMITED,
+    ESTABLISHED,
+    THOROUGH
 }

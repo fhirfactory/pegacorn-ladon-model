@@ -19,10 +19,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package net.fhirfactory.pegacorn.ladon.model.mdr;
+package net.fhirfactory.pegacorn.ladon.model.virtualdb.mdr;
 
-import org.hl7.fhir.r4.model.Property;
+import org.hl7.fhir.r4.model.Resource;
 
-public abstract class SoTAttributeWriter extends SoTAttributeCommon implements SoTAttributeWriterInterface{
-
+public class ResourceSoTAggregatedResponse {
+    private ResourceGradeEnum responseResourceGrade;
+    Resource loadedResource;
 }

@@ -19,37 +19,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package net.fhirfactory.pegacorn.ladon.model.mdr;
+package net.fhirfactory.pegacorn.ladon.model.virtualdb.operations;
 
-import org.hl7.fhir.r4.model.*;
-
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-public interface SoTConduitInterface extends SoTAttributeReaderInterface, SoTAttributeWriterInterface{
-
-    //
-    // resourceReaders
-    //
-    public Resource readResource(IdType id);
-    public Resource readResource(Identifier identifier);
-    public boolean isSuitableReaderForResource(IdType id);
-    public boolean isSuitableReaderForResource(Identifier identifier);
-    public boolean resourceIsWhollyDerivedFromSingleSource();
-    public boolean resourceIsBaseFromSingleSource();
-    
-    //
-    // resourceSearches (base set, keep limited or else)
-    //
-    
-    public List<Resource> readResources(Property attributeName, Element atributeValue);
-    public List<Resource> readResources(Map<Property, Element> parameterSet);
-    
-    //
-    // resourceWriters
-    //
-
-    public boolean isSuitableWriterForResource(Resource wholeResource);
-    public void writeResource(Resource wholeResource);
+public enum VirtualDBActionTypeEnum {
+    CREATE,
+    REVIEW,
+    UPDATE,
+    DELETE,
+    SEARCH,
+    SYNC
 }

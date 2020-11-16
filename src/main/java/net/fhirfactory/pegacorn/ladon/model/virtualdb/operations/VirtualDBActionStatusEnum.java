@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Mark A. Hunter
+ * Copyright (c) 2020 Mark A. Hunter (ACT Health)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -19,20 +19,40 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package net.fhirfactory.pegacorn.ladon.model.mdr;
+package net.fhirfactory.pegacorn.ladon.model.virtualdb.operations;
 
-import org.hl7.fhir.r4.model.Property;
+public enum VirtualDBActionStatusEnum {
+    CREATION_START,
+    CREATION_IN_PROGRESS,
+    CREATION_FINISH,
+    CREATION_FAILURE,
+    CREATION_NOT_REQUIRED,
+    CREATED_PAUSED,
+    UPDATE_START,
+    UPDATE_IN_PROGRESS,
+    UPDATE_FINISH,
+    UPDATE_FAILURE,
+    UPDATE_PAUSED,
+    UPDATE_NOT_REQUIRED,
+    DELETE_START,
+    DELETE_IN_PROGRESS,
+    DELETE_FINISH,
+    DELETE_FAILURE,
+    DELETE_PAUSED,
+    REVIEW_START,
+    REVIEW_IN_PROGRESS,
+    REVIEW_FINISH,
+    REVIEW_FAILURE,
+    REVIEW_PAUSED,
+    SYNCHRONISING,
+    LOADING_START,
+    LOADING_IN_PROGRESS,
+    LOADING_FINISH,
+    LOADING_FAILURE,
+    SEARCH_FINISHED,
+    SEARCH_FAILURE,
+    SYNC_FINISHED,
+    SYNC_FAILURE,
+    INDETERMINANT
 
-public class SoTAttributeCommon {
-    private Property attributeName;
-    private boolean coexistent;
-    private boolean unary;
-    private SoTIdentifier sourceOfTruth;
-
-    public SoTAttributeCommon() {
-        attributeName = null;
-        sourceOfTruth = null;
-        unary = false;
-        coexistent = false;
-    }
 }
