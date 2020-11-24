@@ -21,11 +21,22 @@
  */
 package net.fhirfactory.pegacorn.ladon.model.virtualdb.mdr;
 
+import ca.uhn.fhir.rest.api.MethodOutcome;
+import ca.uhn.fhir.rest.client.api.IGenericClient;
+import org.hl7.fhir.r4.model.Identifier;
 import org.hl7.fhir.r4.model.ResourceType;
+import org.slf4j.Logger;
+
+import javax.annotation.PostConstruct;
 
 public abstract class SoTResourceConduit implements SoTConduitInterface {
     private ResourceType resourceType;
     private SoTIdentifier sotIdentifier;
+
+    abstract protected void registerWithSoTCConduitController();
+    abstract protected Logger getLogger();
+    abstract protected Identifier getBestIdentifier(MethodOutcome outcome);
+    abstract protected void doSubclassInitialisations();
 
     public SoTIdentifier getSotIdentifier() {
         return sotIdentifier;
@@ -41,5 +52,13 @@ public abstract class SoTResourceConduit implements SoTConduitInterface {
 
     public void setResourceType(ResourceType resourceType) {
         this.resourceType = resourceType;
+    }
+
+    @PostConstruct
+    public void initialise(){
+        getLogger().debug(".initialise(): Entry");
+        registerWithSoTCConduitController();
+        doSubclassInitialisations();
+        getLogger().debug(".initialise(): Exit");
     }
 }

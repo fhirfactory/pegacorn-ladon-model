@@ -22,12 +22,15 @@
 package net.fhirfactory.pegacorn.ladon.model.virtualdb.businesskey;
 
 import org.hl7.fhir.r4.model.Identifier;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.List;
 
 @ApplicationScoped
 public class VirtualDBKeyManagement {
+    private static final Logger LOG = LoggerFactory.getLogger(VirtualDBKeyManagement.class);
 
     /**
      * This method cycles through all the Identifiers and attempts to return "the best"!
@@ -37,38 +40,47 @@ public class VirtualDBKeyManagement {
      * @return The "Best" identifier from the set.
      */
     public Identifier getBestIdentifier(List<Identifier> identifierSet){
+        LOG.debug(".getBestIdentifier(): Entry");
         if(identifierSet == null){
+            LOG.error(".getBestIdentifier(): identifierSet is null");
             return(null);
         }
         if(identifierSet.isEmpty()){
+            LOG.error(".getBestIdentifier(): identifierSet is empty");
             return(null);
         }
         for(Identifier identifier: identifierSet){
-            if(identifier.getUse() == Identifier.IdentifierUse.OFFICIAL){
+            if(identifier.getUse().equals(Identifier.IdentifierUse.OFFICIAL)){
+                LOG.debug(".getBestIdentifier(): Found an -OFFICIAL- Identifier, returning it");
                 return(identifier);
             }
         }
         for(Identifier identifier: identifierSet){
-            if(identifier.getUse() == Identifier.IdentifierUse.USUAL){
+            if(identifier.getUse().equals(Identifier.IdentifierUse.USUAL)){
+                LOG.debug(".getBestIdentifier(): Found an -USUAL- Identifier, returning it");
                 return(identifier);
             }
         }
         for(Identifier identifier: identifierSet){
-            if(identifier.getUse() == Identifier.IdentifierUse.SECONDARY){
+            if(identifier.getUse().equals(Identifier.IdentifierUse.SECONDARY)){
+                LOG.debug(".getBestIdentifier(): Found an -SECONDARY- Identifier, returning it");
                 return(identifier);
             }
         }
         for(Identifier identifier: identifierSet){
-            if(identifier.getUse() == Identifier.IdentifierUse.TEMP){
+            if(identifier.getUse().equals(Identifier.IdentifierUse.TEMP)){
+                LOG.debug(".getBestIdentifier(): Found an -TEMP- Identifier, returning it");
                 return(identifier);
             }
         }
         for(Identifier identifier: identifierSet){
-            if(identifier.getUse() == Identifier.IdentifierUse.OLD){
+            if(identifier.getUse().equals(Identifier.IdentifierUse.OLD)){
+                LOG.debug(".getBestIdentifier(): Found an -OLD- Identifier, returning it");
                 return(identifier);
             }
         }
         Identifier bestIdentifier = identifierSet.get(0);
+        LOG.debug(".getBestIdentifier(): Found nothing, returning the -first- entry");
         return(bestIdentifier);
     }
 
