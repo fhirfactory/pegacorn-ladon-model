@@ -39,13 +39,22 @@ public class ResourceSoTConduitActionResponse extends VirtualDBMethodOutcome imp
 
     public ResourceSoTConduitActionResponse(){
         super();
+        responseResourceGrade = null;
+        soTGrade = null;
+        immutableAttributes = new HashSet<>();
+        authoritativeAttributes = new HashSet<>();
+        informationalAttributes = new HashSet<>();
+        anecdotalAttributes = new HashSet<>();
     }
 
     public ResourceSoTConduitActionResponse(VirtualDBActionTypeEnum action, Identifier identifier, MethodOutcome ori){
         super(action,identifier,ori);
+        immutableAttributes = new HashSet<>();
         authoritativeAttributes = new HashSet<>();
         informationalAttributes = new HashSet<>();
         anecdotalAttributes = new HashSet<>();
+        responseResourceGrade = null;
+        soTGrade = null;
     }
 
     public ResourceGradeEnum getResponseResourceGrade() {
@@ -122,8 +131,20 @@ public class ResourceSoTConduitActionResponse extends VirtualDBMethodOutcome imp
 
     @Override
     public int compareTo(ResourceSoTConduitActionResponse other) {
-        if(this.getSoTGrade() == other.getSoTGrade() && this.getResponseResourceGrade() == other.getResponseResourceGrade()) {
+        if(other == null){
+            return(1);
+        }
+        if(this.getSoTGrade() == other.getSoTGrade() ) {
             return (0);
+        }
+        if(this.getResponseResourceGrade() == other.getResponseResourceGrade()){
+            return(0);
+        }
+        if(other.responseResourceGrade == null){
+            return(1);
+        }
+        if(this.responseResourceGrade == null){
+            return(-1);
         }
         if(this.getSoTGrade() == other.getSoTGrade()){
             if(this.getResponseResourceGrade() == ResourceGradeEnum.THOROUGH){
@@ -144,6 +165,12 @@ public class ResourceSoTConduitActionResponse extends VirtualDBMethodOutcome imp
             if(other.getResponseResourceGrade() == ResourceGradeEnum.LIMITED){
                 return(-1);
             }
+        }
+        if(other.getSoTGrade() == null ){
+            return(1);
+        }
+        if(this.getSoTGrade() == null){
+            return(-1);
         }
         if(this.getSoTGrade() == SoTConduitGradeEnum.AUTHORITATIVE || this.getSoTGrade() == SoTConduitGradeEnum.PARTIALLY_AUTHORITATIVE) {
             if(this.getResponseResourceGrade() == ResourceGradeEnum.THOROUGH || this.getResponseResourceGrade() == ResourceGradeEnum.ESTABLISHED){

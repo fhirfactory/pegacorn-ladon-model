@@ -67,6 +67,7 @@ public class VirtualDBMethodOutcome extends MethodOutcome {
                         }
                     }
                 }
+                break;
             }
             case UPDATE:{
                 if(ori.getOperationOutcome() == null){
@@ -78,7 +79,7 @@ public class VirtualDBMethodOutcome extends MethodOutcome {
                         if(issue.hasDetails()){
                             CodeableConcept details = issue.getDetails();
                             if(details.hasCoding("https://www.hl7.org/fhir/codesystem-operation-outcome.html", "MSG_UPDATED")){
-                                this.statusEnum = VirtualDBActionStatusEnum.CREATION_FINISH;
+                                this.statusEnum = VirtualDBActionStatusEnum.UPDATE_FINISH;
                                 isOK = true;
                                 break;
                             }
@@ -88,6 +89,7 @@ public class VirtualDBMethodOutcome extends MethodOutcome {
                         this.statusEnum = VirtualDBActionStatusEnum.UPDATE_FAILURE;
                     }
                 }
+                break;
             }
         }
         this.causalAction = action;
