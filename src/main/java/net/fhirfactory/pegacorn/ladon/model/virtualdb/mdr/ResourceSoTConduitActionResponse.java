@@ -39,10 +39,15 @@ public class ResourceSoTConduitActionResponse extends VirtualDBMethodOutcome imp
 
     public ResourceSoTConduitActionResponse(){
         super();
+        immutableAttributes = new HashSet<>();
+        authoritativeAttributes = new HashSet<>();
+        informationalAttributes = new HashSet<>();
+        anecdotalAttributes = new HashSet<>();
     }
 
     public ResourceSoTConduitActionResponse(VirtualDBActionTypeEnum action, Identifier identifier, MethodOutcome ori){
         super(action,identifier,ori);
+        immutableAttributes = new HashSet<>();
         authoritativeAttributes = new HashSet<>();
         informationalAttributes = new HashSet<>();
         anecdotalAttributes = new HashSet<>();
