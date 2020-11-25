@@ -24,6 +24,7 @@ package net.fhirfactory.pegacorn.ladon.model.virtualdb.mdr;
 import ca.uhn.fhir.rest.api.MethodOutcome;
 import org.hl7.fhir.r4.model.*;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -55,7 +56,8 @@ public interface SoTConduitInterface {
     //
     
     public List<ResourceSoTConduitSearchResponseElement> getResourcesViaSearchCriteria(ResourceType resourceType, Property attributeName, Element atributeValue);
-    public List<ResourceSoTConduitSearchResponseElement> getResourcesViaSearchCriteria(ResourceType resourceType, Map<Property, Element> parameterSet);
+    public List<ResourceSoTConduitSearchResponseElement> getResourcesViaSearchCriteria(ResourceType resourceType, Map<Property, Serializable> parameterSet);
+    public boolean supportiveOfSearchCritiera(ResourceType resourceType, Map<Property, Serializable> parameterSet);
     
     //
     // Resource Conduit Helpers
