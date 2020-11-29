@@ -21,16 +21,27 @@
  */
 package net.fhirfactory.pegacorn.ladon.model.virtualdb.businesskey;
 
-import org.hl7.fhir.r4.model.Identifier;
+import net.fhirfactory.pegacorn.datasets.fhir.r4.base.entities.endpoint.EndpointIdentifierBuilder;
+import net.fhirfactory.pegacorn.datasets.fhir.r4.internal.systems.DeploymentInstanceDetail;
+import org.hl7.fhir.r4.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 
 @ApplicationScoped
 public class VirtualDBKeyManagement {
     private static final Logger LOG = LoggerFactory.getLogger(VirtualDBKeyManagement.class);
+
+    @Inject
+    EndpointIdentifierBuilder endpointIdentifierBuilder;
+
+    @Inject
+    DeploymentInstanceDetail deploymentInstanceDetail;
 
     /**
      * This method cycles through all the Identifiers and attempts to return "the best"!
@@ -84,4 +95,24 @@ public class VirtualDBKeyManagement {
         return(bestIdentifier);
     }
 
+    public Identifier constructIdentifierForRecordIDValue(String mdrName, String ridValue){
+        LOG.debug(".constructIdentifierForRecordIDValue(): Entry");
+        Identifier mdrRIDIdentifier = new Identifier();
+        mdrRIDIdentifier.setUse(Identifier.IdentifierUse.SECONDARY);
+        CodeableConcept idType = new CodeableConcept();
+        Coding idTypeCoding = new Coding();
+        idTypeCoding.setCode("RI");
+        idTypeCoding.setSystem("http://terminology.hl7.org/ValueSet/v2-0203");
+        idType.getCoding().add(idTypeCoding);
+        idType.setText("Generalized Resource Identifier");
+        mdrRIDIdentifier.setType(idType);
+        mdrRIDIdentifier.setSystem(mdrName);
+        mdrRIDIdentifier.setValue(ridValue);
+        Period validPeriod = new Period();
+        validPeriod.setStart(Date.from(Instant.now()));
+        mdrRIDIdentifier.setPeriod(validPeriod);
+        mdrRIDIdentifier.setAssigner(deploymentInstanceDetail.getDeploymentInstanceOrganization());
+        LOG.debug(".constructEndpointIdentifier(): Exit, created Identifier --> {}", mdrRIDIdentifier);
+        return mdrRIDIdentifier;
+    }
 }

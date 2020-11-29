@@ -26,10 +26,13 @@ import net.fhirfactory.pegacorn.ladon.model.virtualdb.operations.VirtualDBAction
 import net.fhirfactory.pegacorn.ladon.model.virtualdb.operations.VirtualDBMethodOutcome;
 import org.hl7.fhir.r4.model.Identifier;
 import org.hl7.fhir.r4.model.Property;
+import org.hl7.fhir.r4.model.Reference;
 
 import java.util.HashSet;
 
 public class ResourceSoTConduitActionResponse extends VirtualDBMethodOutcome implements Comparable<ResourceSoTConduitActionResponse>{
+    private Reference sourceOfTruthEndpoint;
+    private Reference sourceOfTruthOwningOrganization;
     private ResourceGradeEnum responseResourceGrade;
     private SoTConduitGradeEnum soTGrade;
     private HashSet<String> immutableAttributes;
@@ -37,17 +40,19 @@ public class ResourceSoTConduitActionResponse extends VirtualDBMethodOutcome imp
     private HashSet<String> informationalAttributes;
     private HashSet<String> anecdotalAttributes;
 
-    public ResourceSoTConduitActionResponse(){
+    public ResourceSoTConduitActionResponse(Reference originatingSystem, Reference originatingOrganization){
         super();
         responseResourceGrade = null;
         soTGrade = null;
+        this.sourceOfTruthEndpoint = originatingOrganization;
+        this.sourceOfTruthOwningOrganization = null;
         immutableAttributes = new HashSet<>();
         authoritativeAttributes = new HashSet<>();
         informationalAttributes = new HashSet<>();
         anecdotalAttributes = new HashSet<>();
     }
 
-    public ResourceSoTConduitActionResponse(VirtualDBActionTypeEnum action, Identifier identifier, MethodOutcome ori){
+    public ResourceSoTConduitActionResponse(Reference originatingSystem, Reference originatingOrganization, VirtualDBActionTypeEnum action, Identifier identifier, MethodOutcome ori){
         super(action,identifier,ori);
         immutableAttributes = new HashSet<>();
         authoritativeAttributes = new HashSet<>();
@@ -55,6 +60,8 @@ public class ResourceSoTConduitActionResponse extends VirtualDBMethodOutcome imp
         anecdotalAttributes = new HashSet<>();
         responseResourceGrade = null;
         soTGrade = null;
+        sourceOfTruthEndpoint = originatingSystem;
+        sourceOfTruthOwningOrganization = originatingOrganization;
     }
 
     public ResourceGradeEnum getResponseResourceGrade() {
@@ -77,6 +84,22 @@ public class ResourceSoTConduitActionResponse extends VirtualDBMethodOutcome imp
         if(authoritativeAttribute != null){
             authoritativeAttributes.add(authoritativeAttribute);
         }
+    }
+
+    public Reference getSourceOfTruthEndpoint() {
+        return sourceOfTruthEndpoint;
+    }
+
+    public void setSourceOfTruthEndpoint(Reference sourceOfTruthEndpoint) {
+        this.sourceOfTruthEndpoint = sourceOfTruthEndpoint;
+    }
+
+    public Reference getSourceOfTruthOwningOrganization() {
+        return sourceOfTruthOwningOrganization;
+    }
+
+    public void setSourceOfTruthOwningOrganization(Reference sourceOfTruthOwningOrganization) {
+        this.sourceOfTruthOwningOrganization = sourceOfTruthOwningOrganization;
     }
 
     public void addInformationalAttribute(String informationalAttribute){

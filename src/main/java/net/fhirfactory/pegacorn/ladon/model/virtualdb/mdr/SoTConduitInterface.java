@@ -31,6 +31,13 @@ import java.util.Map;
 public interface SoTConduitInterface {
 
     //
+    // Conduit Name & Version
+    //
+
+    public String getConduitName();
+    public String getConduitVersion();
+
+    //
     // Create
     //
     public ResourceSoTConduitActionResponse createResource(Resource resourceToCreate);

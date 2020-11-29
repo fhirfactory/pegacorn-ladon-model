@@ -22,21 +22,44 @@
 package net.fhirfactory.pegacorn.ladon.model.virtualdb.mdr;
 
 import ca.uhn.fhir.rest.api.MethodOutcome;
-import ca.uhn.fhir.rest.client.api.IGenericClient;
+import net.fhirfactory.pegacorn.common.model.FDN;
+import net.fhirfactory.pegacorn.common.model.RDN;
+import net.fhirfactory.pegacorn.datasets.fhir.r4.base.entities.endpoint.EndpointIdentifierBuilder;
+import net.fhirfactory.pegacorn.datasets.fhir.r4.base.entities.organization.OrganizationIdentifierBuilder;
+import net.fhirfactory.pegacorn.datasets.fhir.r4.codesystems.PegacornIdentifierCodeEnum;
+import net.fhirfactory.pegacorn.datasets.fhir.r4.codesystems.PegacornIdentifierCodeSystemFactory;
+import org.hl7.fhir.r4.model.CodeableConcept;
 import org.hl7.fhir.r4.model.Identifier;
+import org.hl7.fhir.r4.model.Reference;
 import org.hl7.fhir.r4.model.ResourceType;
 import org.slf4j.Logger;
 
 import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 
 public abstract class SoTResourceConduit implements SoTConduitInterface {
     private ResourceType resourceType;
     private SoTIdentifier sotIdentifier;
+    private CodeableConcept sotRecordIDCode;
+    private Reference sourceOfTruthEndpoint;
+    private Reference sourceOfTruthOwningOrganization;
+
+    @Inject
+    private EndpointIdentifierBuilder endpointIdentifierBuilder;
+
+    @Inject
+    private PegacornIdentifierCodeSystemFactory pegacornIdentifierCodeSystemFactory;
+
+    @Inject
+    private OrganizationIdentifierBuilder organizationIdentifierBuilder;
 
     abstract protected void registerWithSoTCConduitController();
     abstract protected Logger getLogger();
     abstract protected Identifier getBestIdentifier(MethodOutcome outcome);
     abstract protected void doSubclassInitialisations();
+
+    abstract protected String specifySourceOfTruthEndpointSystemName();
+    abstract protected String specifySourceOfTruthOwningOrganization();
 
     public SoTIdentifier getSotIdentifier() {
         return sotIdentifier;
@@ -54,11 +77,47 @@ public abstract class SoTResourceConduit implements SoTConduitInterface {
         this.resourceType = resourceType;
     }
 
+    public Reference getSourceOfTruthEndpoint() {
+        return (this.sourceOfTruthEndpoint);
+    }
+
+    public Reference getSourceOfTruthOwningOrganization() {
+        return (this.sourceOfTruthOwningOrganization);
+    }
+
     @PostConstruct
     public void initialise(){
         getLogger().debug(".initialise(): Entry");
         registerWithSoTCConduitController();
         doSubclassInitialisations();
+        this.sourceOfTruthEndpoint = buildEndpointSystemReference();
+        this.sourceOfTruthOwningOrganization = buildOrganizationReference();
+        buildSoTIdentifierDetail();
         getLogger().debug(".initialise(): Exit");
+    }
+
+    private void buildSoTIdentifierDetail(){
+        FDN localFDN = new FDN();
+        localFDN.appendRDN (new RDN("SoTConduit", getConduitName()));
+        this.sotIdentifier = new SoTIdentifier(localFDN.getToken());
+        this.sotRecordIDCode = pegacornIdentifierCodeSystemFactory.buildIdentifierType(PegacornIdentifierCodeEnum.IDENTIFIER_CODE_FHIR_ENDPOINT_SYSTEM);
+    }
+
+    private Reference buildEndpointSystemReference(){
+        Identifier identifier = endpointIdentifierBuilder.constructEndpointIdentifier(specifySourceOfTruthEndpointSystemName());
+        Reference reference = new Reference();
+        reference.setIdentifier(identifier);
+        reference.setType(ResourceType.Endpoint.getPath());
+        reference.setDisplay(specifySourceOfTruthEndpointSystemName());
+        return(reference);
+    }
+
+    private Reference buildOrganizationReference(){
+        Identifier identifier = organizationIdentifierBuilder.constructOrganizationIdentifier(specifySourceOfTruthOwningOrganization());
+        Reference reference = new Reference();
+        reference.setIdentifier(identifier);
+        reference.setType(ResourceType.Organization.getPath());
+        reference.setDisplay(specifySourceOfTruthOwningOrganization());
+        return(reference);
     }
 }
