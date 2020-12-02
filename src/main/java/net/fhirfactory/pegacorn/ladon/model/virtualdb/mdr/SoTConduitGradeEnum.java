@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Mark A. Hunter (ACT Health)
+ * Copyright (c) 2020 Mark A. Hunter
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -19,13 +19,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package net.fhirfactory.pegacorn.ladon.model.status.dtcache;
+package net.fhirfactory.pegacorn.ladon.model.virtualdb.mdr;
 
-public enum DTCacheActivityOutcomeEnum {
-    DT_CACHE_OUTCOME_RESOURCE_CREATED,
-    DT_CACHE_OUTCOME_RESOURCE_UPDATED,
-    DT_CACHE_OUTCOME_RESOURCE_REMOVED,
-    DT_CACHE_OUTCOME_RESOURCE_RETRIEVED,
-    DT_CACHE_OUTCOME_RESOURCE_INDETERMINANT,
-    DT_CACHE_OUTCOME_RESOURCE_BLOCKED_SECURITY
+public enum SoTConduitGradeEnum {
+    AUTHORITATIVE,
+    PARTIALLY_AUTHORITATIVE,
+    INFORMATIVE,
+    PARTIALLY_INFORMATIVE,
+    ANECDOTAL
 }

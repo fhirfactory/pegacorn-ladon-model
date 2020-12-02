@@ -19,13 +19,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package net.fhirfactory.pegacorn.ladon.model.topicsupport;
+package net.fhirfactory.pegacorn.ladon.model.virtualdb.mdr;
 
-import java.util.List;
+import org.hl7.fhir.r4.model.Resource;
 
-import net.fhirfactory.pegacorn.petasos.model.topics.TopicToken;
-
-public interface TopicSubscriptionRequestInterface {
-	public void requestSubscrption(List<TopicToken> topicList);
-
+public class ResourceSoTAggregatedResponse {
+    private ResourceGradeEnum responseResourceGrade;
+    Resource loadedResource;
 }

@@ -19,13 +19,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package net.fhirfactory.pegacorn.ladon.model.topicsupport;
+package net.fhirfactory.pegacorn.ladon.model.virtualdb.operations;
 
-import java.util.List;
-
-import net.fhirfactory.pegacorn.petasos.model.topics.TopicToken;
-
-public interface TopicSubscriptionRequestInterface {
-	public void requestSubscrption(List<TopicToken> topicList);
-
+public enum VirtualDBActionTypeEnum {
+    CREATE,
+    REVIEW,
+    UPDATE,
+    DELETE,
+    SEARCH,
+    SYNC
 }

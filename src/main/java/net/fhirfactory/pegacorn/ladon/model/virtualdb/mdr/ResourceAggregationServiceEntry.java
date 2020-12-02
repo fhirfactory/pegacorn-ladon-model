@@ -19,13 +19,36 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package net.fhirfactory.pegacorn.ladon.model.topicsupport;
+package net.fhirfactory.pegacorn.ladon.model.virtualdb.mdr;
 
-import java.util.List;
+import org.hl7.fhir.r4.model.Resource;
 
-import net.fhirfactory.pegacorn.petasos.model.topics.TopicToken;
+public class ResourceAggregationServiceEntry {
+    private ResourceGradeEnum responseResourceGrade;
+    private SoTConduitGradeEnum soTGrade;
+    private Resource resource;
 
-public interface TopicSubscriptionRequestInterface {
-	public void requestSubscrption(List<TopicToken> topicList);
+    public ResourceGradeEnum getResponseResourceGrade() {
+        return responseResourceGrade;
+    }
 
+    public void setResponseResourceGrade(ResourceGradeEnum responseResourceGrade) {
+        this.responseResourceGrade = responseResourceGrade;
+    }
+
+    public SoTConduitGradeEnum getSoTGrade() {
+        return soTGrade;
+    }
+
+    public void setSoTGrade(SoTConduitGradeEnum soTGrade) {
+        this.soTGrade = soTGrade;
+    }
+
+    public Resource getResource() {
+        return resource;
+    }
+
+    public void setResource(Resource resource) {
+        this.resource = resource;
+    }
 }

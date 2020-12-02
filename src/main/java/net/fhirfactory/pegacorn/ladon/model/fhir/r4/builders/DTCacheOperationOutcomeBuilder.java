@@ -22,7 +22,7 @@
 package net.fhirfactory.pegacorn.ladon.model.fhir.r4.builders;
 
 import net.fhirfactory.pegacorn.ladon.model.fhir.r4.common.LadonModelConstants;
-import net.fhirfactory.pegacorn.ladon.model.status.dtcache.DTCacheActivityOutcomeEnum;
+import net.fhirfactory.pegacorn.ladon.model.virtualdb.cache.CacheActivityOutcomeEnum;
 import org.hl7.fhir.r4.model.IdType;
 import org.hl7.fhir.r4.model.OperationOutcome;
 
@@ -46,7 +46,7 @@ public class DTCacheOperationOutcomeBuilder {
         return(outcome);
     }
 
-    public OperationOutcome buildOperationOutcome(OperationOutcome.IssueSeverity severity, OperationOutcome.IssueType issueType, DTCacheActivityOutcomeEnum detailCode, IdType resourceId, String additionalText){
+    public OperationOutcome buildOperationOutcome(OperationOutcome.IssueSeverity severity, OperationOutcome.IssueType issueType, CacheActivityOutcomeEnum detailCode, IdType resourceId, String additionalText){
         OperationOutcome outcome = new OperationOutcome();
 
 
