@@ -21,7 +21,7 @@
  */
 package net.fhirfactory.pegacorn.ladon.model.virtualdb.businesskey;
 
-import net.fhirfactory.pegacorn.datasets.fhir.r4.base.entities.endpoint.EndpointIdentifierBuilder;
+import net.fhirfactory.pegacorn.datasets.fhir.r4.base.resources.endpoint.EndpointIdentifierBuilder;
 import net.fhirfactory.pegacorn.datasets.fhir.r4.internal.systems.DeploymentInstanceDetail;
 import org.hl7.fhir.r4.model.*;
 import org.slf4j.Logger;

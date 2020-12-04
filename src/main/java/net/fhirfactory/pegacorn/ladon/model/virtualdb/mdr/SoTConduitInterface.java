@@ -44,7 +44,7 @@ public interface SoTConduitInterface {
     //
     // Review
     //
-    public ResourceSoTConduitActionResponse reviewResource(Identifier identifier);
+    public ResourceSoTConduitActionResponse getResourceViaIdentifier(Identifier identifier);
     //
     // Review
     //
