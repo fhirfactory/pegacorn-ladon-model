@@ -30,5 +30,5 @@ public interface ResourceDBEngineInterface {
     //
     public VirtualDBMethodOutcome getResourcesViaSearchCriteria(ResourceType resourceType, Property attributeName, Element attributeValue);
     public VirtualDBMethodOutcome getResourcesViaSearchCriteria(ResourceType resourceType, Map<Property, Serializable> parameterSet);
-    public VirtualDBMethodOutcome getResourceViaIdentifier(Identifier identifier);
+    public VirtualDBMethodOutcome findResourceViaIdentifier(Identifier identifier);
 }
