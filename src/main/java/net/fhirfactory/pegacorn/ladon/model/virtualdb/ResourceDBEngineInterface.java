@@ -1,6 +1,7 @@
 package net.fhirfactory.pegacorn.ladon.model.virtualdb;
 
 import net.fhirfactory.pegacorn.ladon.model.virtualdb.operations.VirtualDBMethodOutcome;
+import net.fhirfactory.pegacorn.ladon.model.virtualdb.searches.SearchNameEnum;
 import org.hl7.fhir.r4.model.*;
 
 import java.io.Serializable;
@@ -28,7 +29,6 @@ public interface ResourceDBEngineInterface {
     //
     // resourceSearches (base set, keep limited or else)
     //
-    public VirtualDBMethodOutcome getResourcesViaSearchCriteria(ResourceType resourceType, Property attributeName, Element attributeValue);
-    public VirtualDBMethodOutcome getResourcesViaSearchCriteria(ResourceType resourceType, Map<Property, Serializable> parameterSet);
+    public VirtualDBMethodOutcome getResourcesViaSearchCriteria(ResourceType resourceType, SearchNameEnum searchName, Map<Property, Serializable> parameterSet);
     public VirtualDBMethodOutcome findResourceViaIdentifier(Identifier identifier);
 }

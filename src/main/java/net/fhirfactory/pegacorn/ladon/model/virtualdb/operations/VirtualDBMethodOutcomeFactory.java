@@ -38,7 +38,6 @@ public class VirtualDBMethodOutcomeFactory {
     {
         vdbOutcome.setCreated(false);
         vdbOutcome.setId(resourceId);
-        vdbOutcome.setCausalAction(VirtualDBActionTypeEnum.DELETE);
         OperationOutcome opOutcome = new OperationOutcome();
         OperationOutcome.OperationOutcomeIssueComponent newOutcomeComponent = new OperationOutcome.OperationOutcomeIssueComponent();
         CodeableConcept details = new CodeableConcept();
@@ -46,47 +45,71 @@ public class VirtualDBMethodOutcomeFactory {
         switch(status) {
             case DELETE_FINISH: {
                 vdbOutcome.setStatusEnum(VirtualDBActionStatusEnum.DELETE_FINISH);
+                vdbOutcome.setCausalAction(VirtualDBActionTypeEnum.DELETE);
                 newOutcomeComponent.setCode(OperationOutcome.IssueType.DELETED);
                 newOutcomeComponent.setSeverity(OperationOutcome.IssueSeverity.INFORMATION);
                 detailsCoding.setSystem("https://www.hl7.org/fhir/codesystem-operation-outcome.html");
                 detailsCoding.setCode("MSG_DELETED");
                 detailsCoding.setDisplay("This resource has been deleted");
                 details.setText("This resource has been deleted");
+                break;
             }
             case DELETE_FAILURE: {
                 vdbOutcome.setStatusEnum(VirtualDBActionStatusEnum.DELETE_FAILURE);
+                vdbOutcome.setCausalAction(VirtualDBActionTypeEnum.DELETE);
                 newOutcomeComponent.setCode(OperationOutcome.IssueType.NOTFOUND);
                 newOutcomeComponent.setSeverity(OperationOutcome.IssueSeverity.INFORMATION);
                 detailsCoding.setSystem("https://www.hl7.org/fhir/codesystem-operation-outcome.html");
                 detailsCoding.setCode("MSG_NO_MATCH");
                 String text = "No Resource found matching the query: " + resourceId;
+                break;
             }
             case CREATION_NOT_REQUIRED: {
                 vdbOutcome.setStatusEnum(VirtualDBActionStatusEnum.CREATION_NOT_REQUIRED);
+                vdbOutcome.setCausalAction(VirtualDBActionTypeEnum.CREATE);
                 newOutcomeComponent.setCode(OperationOutcome.IssueType.INFORMATIONAL);
                 newOutcomeComponent.setSeverity(OperationOutcome.IssueSeverity.INFORMATION);
                 detailsCoding.setSystem("https://www.hl7.org/fhir/codesystem-operation-outcome.html");
                 detailsCoding.setCode("MSG_CREATED");
                 detailsCoding.setDisplay("New Resource Created");
                 details.setText("New Resource Created");
+                break;
             }
             case CREATION_FINISH:{
                 vdbOutcome.setStatusEnum(VirtualDBActionStatusEnum.CREATION_FINISH);
+                vdbOutcome.setCausalAction(VirtualDBActionTypeEnum.CREATE);
                 newOutcomeComponent.setCode(OperationOutcome.IssueType.INFORMATIONAL);
                 newOutcomeComponent.setSeverity(OperationOutcome.IssueSeverity.INFORMATION);
                 detailsCoding.setSystem("https://www.hl7.org/fhir/codesystem-operation-outcome.html");
                 detailsCoding.setCode("MSG_CREATED");
                 detailsCoding.setDisplay("New Resource Created");
                 details.setText("New Resource Created");
+                break;
             }
             case REVIEW_FAILURE: {
                 vdbOutcome.setStatusEnum(VirtualDBActionStatusEnum.REVIEW_FAILURE);
+                vdbOutcome.setCausalAction(VirtualDBActionTypeEnum.REVIEW);
                 newOutcomeComponent.setCode(OperationOutcome.IssueType.NOTFOUND);
                 newOutcomeComponent.setSeverity(OperationOutcome.IssueSeverity.WARNING);
                 detailsCoding.setSystem("https://www.hl7.org/fhir/codesystem-operation-outcome.html");
                 detailsCoding.setCode("MSG_NO_EXIST");
                 String text = "Resource Id " + resourceId + "does not exist";
+                detailsCoding.setDisplay(text);
                 details.setText(text);
+                break;
+            }
+            case REVIEW_FINISH:{
+                vdbOutcome.setStatusEnum(VirtualDBActionStatusEnum.REVIEW_FINISH);
+                vdbOutcome.setCausalAction(VirtualDBActionTypeEnum.REVIEW);
+                newOutcomeComponent.setCode(OperationOutcome.IssueType.INFORMATIONAL);
+                newOutcomeComponent.setSeverity(OperationOutcome.IssueSeverity.INFORMATION);
+                detailsCoding.setSystem("https://www.hl7.org/fhir/codesystem-operation-outcome.html"); // TODO Pegacorn specific encoding --> need to check validity
+                detailsCoding.setCode("MSG_RESOURCE_RETRIEVED"); // TODO Pegacorn specific encoding --> need to check validity
+                details.setText("Resource Id ("+ resourceId +") has been retrieved");
+                String text = "Resource Id " + resourceId + "does not exist";
+                details.setText(text);
+                detailsCoding.setDisplay(text);
+                break;
             }
         }
         details.addCoding(detailsCoding);
