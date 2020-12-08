@@ -24,6 +24,7 @@ package net.fhirfactory.pegacorn.ladon.model.virtualdb.mdr;
 import ca.uhn.fhir.rest.api.MethodOutcome;
 import net.fhirfactory.pegacorn.ladon.model.virtualdb.operations.VirtualDBActionTypeEnum;
 import net.fhirfactory.pegacorn.ladon.model.virtualdb.operations.VirtualDBMethodOutcome;
+import net.fhirfactory.pegacorn.petasos.model.itops.PegacornFunctionStatusEnum;
 import org.hl7.fhir.r4.model.Identifier;
 import org.hl7.fhir.r4.model.Property;
 import org.hl7.fhir.r4.model.Reference;
@@ -31,8 +32,12 @@ import org.hl7.fhir.r4.model.Reference;
 import java.util.HashSet;
 
 public class ResourceSoTConduitActionResponse extends VirtualDBMethodOutcome implements Comparable<ResourceSoTConduitActionResponse>{
+    @Deprecated
     private Reference sourceOfTruthEndpoint;
+    @Deprecated
     private Reference sourceOfTruthOwningOrganization;
+    private String sourceOfTruthName;
+    private PegacornFunctionStatusEnum functionStatusEnum;
     private ResourceGradeEnum responseResourceGrade;
     private SoTConduitGradeEnum soTGrade;
     private HashSet<String> immutableAttributes;
@@ -40,12 +45,41 @@ public class ResourceSoTConduitActionResponse extends VirtualDBMethodOutcome imp
     private HashSet<String> informationalAttributes;
     private HashSet<String> anecdotalAttributes;
 
+    public ResourceSoTConduitActionResponse(String sotName, PegacornFunctionStatusEnum functionStatus){
+        super();
+        sourceOfTruthName = sotName;
+        functionStatusEnum = functionStatus;
+        responseResourceGrade = null;
+        soTGrade = null;
+        immutableAttributes = new HashSet<>();
+        authoritativeAttributes = new HashSet<>();
+        informationalAttributes = new HashSet<>();
+        anecdotalAttributes = new HashSet<>();
+        sourceOfTruthEndpoint = null;
+        sourceOfTruthOwningOrganization = null;
+    }
+
+    public ResourceSoTConduitActionResponse(String sotName, PegacornFunctionStatusEnum functionStatus, VirtualDBActionTypeEnum action, Identifier identifier, MethodOutcome ori){
+        super(action,identifier,ori);
+        sourceOfTruthName = sotName;
+        functionStatusEnum = functionStatus;
+        immutableAttributes = new HashSet<>();
+        authoritativeAttributes = new HashSet<>();
+        informationalAttributes = new HashSet<>();
+        anecdotalAttributes = new HashSet<>();
+        responseResourceGrade = null;
+        soTGrade = null;
+        sourceOfTruthEndpoint = null;
+        sourceOfTruthOwningOrganization = null;
+    }
+
+    @Deprecated
     public ResourceSoTConduitActionResponse(Reference originatingSystem, Reference originatingOrganization){
         super();
         responseResourceGrade = null;
         soTGrade = null;
-        this.sourceOfTruthEndpoint = originatingOrganization;
-        this.sourceOfTruthOwningOrganization = null;
+        this.sourceOfTruthEndpoint = originatingSystem;
+        this.sourceOfTruthOwningOrganization = originatingOrganization;
         immutableAttributes = new HashSet<>();
         authoritativeAttributes = new HashSet<>();
         informationalAttributes = new HashSet<>();
@@ -150,6 +184,22 @@ public class ResourceSoTConduitActionResponse extends VirtualDBMethodOutcome imp
 
     public void setImmutableAttributes(HashSet<String> immutableAttributes) {
         this.immutableAttributes = immutableAttributes;
+    }
+
+    public String getSourceOfTruthName() {
+        return sourceOfTruthName;
+    }
+
+    public void setSourceOfTruthName(String sourceOfTruthName) {
+        this.sourceOfTruthName = sourceOfTruthName;
+    }
+
+    public PegacornFunctionStatusEnum getFunctionStatusEnum() {
+        return functionStatusEnum;
+    }
+
+    public void setFunctionStatusEnum(PegacornFunctionStatusEnum functionStatusEnum) {
+        this.functionStatusEnum = functionStatusEnum;
     }
 
     @Override

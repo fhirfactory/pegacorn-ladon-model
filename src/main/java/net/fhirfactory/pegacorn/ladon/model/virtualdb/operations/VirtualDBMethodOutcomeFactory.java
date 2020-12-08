@@ -134,7 +134,7 @@ public class VirtualDBMethodOutcomeFactory {
         details.addCoding(detailsCoding);
         OperationOutcome opOutcome = new OperationOutcome();
         OperationOutcome.OperationOutcomeIssueComponent newOutcomeComponent = new OperationOutcome.OperationOutcomeIssueComponent();
-        newOutcomeComponent.setDiagnostics(resourceType.getPath());
+        newOutcomeComponent.setDiagnostics(resourceType.toString());
         newOutcomeComponent.setDetails(details);
         newOutcomeComponent.setCode(OperationOutcome.IssueType.NOTFOUND);
         newOutcomeComponent.setSeverity(OperationOutcome.IssueSeverity.WARNING);
