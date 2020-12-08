@@ -36,15 +36,15 @@ public class ResourceSoTConduitActionResponseFactory {
     public ResourceSoTConduitActionResponse createResourceConduitActionResponse(String sotName, PegacornFunctionStatusEnum functionStatusEnum, Resource resource, IdType resourceId, VirtualDBActionStatusEnum status, String activityLocation){
         ResourceSoTConduitActionResponse sotConduitOutcome = new ResourceSoTConduitActionResponse(sotName, functionStatusEnum);
         outcomeFactory.populateResourceActivityOutcome(sotConduitOutcome, resourceId,  status, activityLocation);
-        if(resource != null){
-            sotConduitOutcome.setResource(resource);
-        }
         if(resourceId != null){
             sotConduitOutcome.setId(resourceId);
         }
-        // If the Resource has an Id, overwrite the value set above.
-        if(resource.hasId()){
-            sotConduitOutcome.setId(new IdType(resourceId.getId()));
+        if(resource != null) {
+            sotConduitOutcome.setResource(resource);
+            // If the Resource has an Id, overwrite the value set above.
+            if (resource.hasId()) {
+                sotConduitOutcome.setId(new IdType(resourceId.getId()));
+            }
         }
         return(sotConduitOutcome);
     }
