@@ -1,14 +1,15 @@
 package net.fhirfactory.pegacorn.ladon.model.virtualdb.mdr;
 
-import net.fhirfactory.pegacorn.ladon.model.virtualdb.operations.VirtualDBActionStatusEnum;
-import net.fhirfactory.pegacorn.ladon.model.virtualdb.operations.VirtualDBMethodOutcomeFactory;
-import net.fhirfactory.pegacorn.petasos.model.itops.PegacornFunctionStatusEnum;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+
 import org.hl7.fhir.r4.model.IdType;
 import org.hl7.fhir.r4.model.Reference;
 import org.hl7.fhir.r4.model.Resource;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+import net.fhirfactory.pegacorn.ladon.model.virtualdb.operations.VirtualDBActionStatusEnum;
+import net.fhirfactory.pegacorn.ladon.model.virtualdb.operations.VirtualDBMethodOutcomeFactory;
+import net.fhirfactory.pegacorn.petasos.model.itops.PegacornFunctionStatusEnum;
 
 @ApplicationScoped
 public class ResourceSoTConduitActionResponseFactory {
@@ -43,7 +44,7 @@ public class ResourceSoTConduitActionResponseFactory {
             sotConduitOutcome.setResource(resource);
             // If the Resource has an Id, overwrite the value set above.
             if (resource.hasId()) {
-                sotConduitOutcome.setId(new IdType(resourceId.getId()));
+                sotConduitOutcome.setId(resource.getIdElement());
             }
         }
         return(sotConduitOutcome);
