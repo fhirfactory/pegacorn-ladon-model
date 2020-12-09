@@ -63,7 +63,7 @@ public interface SoTConduitInterface {
     // resourceSearches (base set, keep limited or else)
     //
     
-    public List<ResourceSoTConduitSearchResponseElement> getResourcesViaSearchCriteria(ResourceType resourceType, SearchNameEnum searchName, Map<Property, Serializable> parameterSet);
+    public List<ResourceSoTConduitSearchResponseElement> searchSourceOfTruthUsingCriteria(ResourceType resourceType, SearchNameEnum searchName, Map<Property, Serializable> parameterSet);
     public boolean supportiveOfSearch(SearchNameEnum searchName);
     
     //

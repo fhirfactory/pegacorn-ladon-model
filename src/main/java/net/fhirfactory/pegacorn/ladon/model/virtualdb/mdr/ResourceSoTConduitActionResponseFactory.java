@@ -43,7 +43,7 @@ public class ResourceSoTConduitActionResponseFactory {
             sotConduitOutcome.setResource(resource);
             // If the Resource has an Id, overwrite the value set above.
             if (resource.hasId()) {
-                sotConduitOutcome.setId(new IdType(resourceId.getId()));
+                sotConduitOutcome.setId(resource.getIdElement());
             }
         }
         return(sotConduitOutcome);
