@@ -22,6 +22,7 @@
 package net.fhirfactory.pegacorn.ladon.model.virtualdb.mdr;
 
 import ca.uhn.fhir.rest.api.MethodOutcome;
+import net.fhirfactory.pegacorn.ladon.model.virtualdb.searches.SearchNameEnum;
 import org.hl7.fhir.r4.model.*;
 
 import java.io.Serializable;
@@ -44,7 +45,7 @@ public interface SoTConduitInterface {
     //
     // Review
     //
-    public ResourceSoTConduitActionResponse reviewResource(Identifier identifier);
+    public ResourceSoTConduitActionResponse getResourceViaIdentifier(Identifier identifier);
     //
     // Review
     //
@@ -62,9 +63,8 @@ public interface SoTConduitInterface {
     // resourceSearches (base set, keep limited or else)
     //
     
-    public List<ResourceSoTConduitSearchResponseElement> getResourcesViaSearchCriteria(ResourceType resourceType, Property attributeName, Element atributeValue);
-    public List<ResourceSoTConduitSearchResponseElement> getResourcesViaSearchCriteria(ResourceType resourceType, Map<Property, Serializable> parameterSet);
-    public boolean supportiveOfSearchCritiera(ResourceType resourceType, Map<Property, Serializable> parameterSet);
+    public List<ResourceSoTConduitSearchResponseElement> searchSourceOfTruthUsingCriteria(ResourceType resourceType, SearchNameEnum searchName, Map<Property, Serializable> parameterSet);
+    public boolean supportiveOfSearch(SearchNameEnum searchName);
     
     //
     // Resource Conduit Helpers

@@ -115,4 +115,44 @@ public class VirtualDBKeyManagement {
         LOG.debug(".constructEndpointIdentifier(): Exit, created Identifier --> {}", mdrRIDIdentifier);
         return mdrRIDIdentifier;
     }
+
+    public String generatePrintableInformationFromIdentifier(Identifier identifier) {
+        if(identifier == null) {
+            return("No Identifier");
+        }
+        String printableInfo = new String();
+        if(identifier.hasType()) {
+            printableInfo += "Identifier";
+            CodeableConcept identifierType = identifier.getType();
+            int codeCount = identifierType.getCoding().size();
+            printableInfo += "{\"type\":[";
+            for(Coding identifierTypeCoding: identifierType.getCoding()) {
+                if(identifierTypeCoding.hasSystem()) {
+                    printableInfo += "{\"";
+                    printableInfo += identifierTypeCoding.getSystem();
+                    printableInfo += "\"";
+                } else {
+                    printableInfo += "\"\"";
+                }
+                printableInfo += ":";
+                if(identifierTypeCoding.hasCode()) {
+                    printableInfo += "\"";
+                    printableInfo += identifierTypeCoding.getCode();
+                    printableInfo += "\"}";
+                } else {
+                    printableInfo += "\"\"}";
+                }
+            }
+            codeCount -= 1;
+            if(codeCount < 1) {
+                printableInfo += "]},";
+            } else {
+                printableInfo += ",";
+            }
+        }
+        if(identifier.hasValue()) {
+            printableInfo += "{\"value\":\"" + identifier.getValue() + "\"}";
+        }
+        return(printableInfo);
+    }
 }

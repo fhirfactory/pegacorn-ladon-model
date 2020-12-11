@@ -32,6 +32,22 @@ public class VirtualDBMethodOutcome extends MethodOutcome {
     VirtualDBActionTypeEnum causalAction;
     Identifier identifier;
 
+    public boolean hasResource(){
+        if(getResource()==null){
+            return(false);
+        } else {
+            return(true);
+        }
+    }
+
+    public boolean hasResourceId(){
+        if(getId()==null){
+            return(false);
+        } else {
+            return (true);
+        }
+    }
+
     public VirtualDBMethodOutcome(){
         super();
     }

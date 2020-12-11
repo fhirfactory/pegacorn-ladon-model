@@ -22,6 +22,7 @@
 package net.fhirfactory.pegacorn.ladon.model.virtualdb.mdr;
 
 public enum ResourceGradeEnum {
+    NO_RESOURCE,
     EMPTY,
     LIMITED,
     ESTABLISHED,

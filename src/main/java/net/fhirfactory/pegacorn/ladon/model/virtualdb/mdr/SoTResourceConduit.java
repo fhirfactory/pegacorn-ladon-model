@@ -28,6 +28,7 @@ import net.fhirfactory.pegacorn.datasets.fhir.r4.base.entities.endpoint.Endpoint
 import net.fhirfactory.pegacorn.datasets.fhir.r4.base.entities.organization.OrganizationIdentifierBuilder;
 import net.fhirfactory.pegacorn.datasets.fhir.r4.codesystems.PegacornIdentifierCodeEnum;
 import net.fhirfactory.pegacorn.datasets.fhir.r4.codesystems.PegacornIdentifierCodeSystemFactory;
+import net.fhirfactory.pegacorn.util.FHIRContextUtility;
 import org.hl7.fhir.r4.model.CodeableConcept;
 import org.hl7.fhir.r4.model.Identifier;
 import org.hl7.fhir.r4.model.Reference;
@@ -53,6 +54,9 @@ public abstract class SoTResourceConduit implements SoTConduitInterface {
     @Inject
     private OrganizationIdentifierBuilder organizationIdentifierBuilder;
 
+    @Inject
+    private FHIRContextUtility fhirContextUtility;
+
     abstract protected void registerWithSoTCConduitController();
     abstract protected Logger getLogger();
     abstract protected Identifier getBestIdentifier(MethodOutcome outcome);
@@ -61,6 +65,7 @@ public abstract class SoTResourceConduit implements SoTConduitInterface {
     abstract protected String specifySourceOfTruthEndpointSystemName();
     abstract protected String specifySourceOfTruthOwningOrganization();
 
+    public FHIRContextUtility getFHIRContextUtility(){ return(fhirContextUtility);}
     public SoTIdentifier getSotIdentifier() {
         return sotIdentifier;
     }
@@ -76,6 +81,8 @@ public abstract class SoTResourceConduit implements SoTConduitInterface {
     public void setResourceType(ResourceType resourceType) {
         this.resourceType = resourceType;
     }
+
+    protected String getSourceOfTruthEndpointName(){return(specifySourceOfTruthEndpointSystemName());}
 
     public Reference getSourceOfTruthEndpoint() {
         return (this.sourceOfTruthEndpoint);
@@ -107,7 +114,7 @@ public abstract class SoTResourceConduit implements SoTConduitInterface {
         Identifier identifier = endpointIdentifierBuilder.constructEndpointIdentifier(specifySourceOfTruthEndpointSystemName());
         Reference reference = new Reference();
         reference.setIdentifier(identifier);
-        reference.setType(ResourceType.Endpoint.getPath());
+        reference.setType(ResourceType.Endpoint.toString());
         reference.setDisplay(specifySourceOfTruthEndpointSystemName());
         return(reference);
     }
@@ -116,7 +123,7 @@ public abstract class SoTResourceConduit implements SoTConduitInterface {
         Identifier identifier = organizationIdentifierBuilder.constructOrganizationIdentifier(specifySourceOfTruthOwningOrganization());
         Reference reference = new Reference();
         reference.setIdentifier(identifier);
-        reference.setType(ResourceType.Organization.getPath());
+        reference.setType(ResourceType.Organization.toString());
         reference.setDisplay(specifySourceOfTruthOwningOrganization());
         return(reference);
     }
